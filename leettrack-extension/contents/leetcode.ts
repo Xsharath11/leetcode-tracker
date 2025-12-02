@@ -41,7 +41,7 @@ function detectSubmissionStatus() {
     datesolved: new Date().toISOString()
   }
 
-  console.log("Accepted solution detected: ", payload)
+  console.log("Accepted Submission detected: ", payload)
 
   browser.runtime.sendMessage({
     type: "ACCEPTED_SUBMISSION",

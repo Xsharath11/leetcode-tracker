@@ -6,6 +6,8 @@ export const config = {
   ]
 }
 
+let alreadyDetected = false;
+
 console.log("Leettrack content script is active")
 
 function extractProblemIdFromURL(): string | null {
@@ -19,9 +21,15 @@ function extractProblemTitle(): string | null {
 }
 
 function detectSubmissionStatus() {
+  if (alreadyDetected) return
   const statusEl = document.querySelector('[data-e2e-locator="submission-result"]')
 
   if (!statusEl) return
+
+  const status = statusEl.textContent?.trim()
+  if (status !== "Accepted") return
+
+  alreadyDetected = true
 
   const problemId = extractProblemIdFromURL()
   const title = extractProblemTitle()
